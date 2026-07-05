@@ -12,6 +12,7 @@ import json
 
 from pvpoke_data import get_top_n, fetch_gamemaster, build_species_lookup, LEAGUE_CP_CAPS
 from iv_calculator import best_iv_for_cap
+from type_colors import row_style
 
 
 def build_list(league: str = "great", category: str = "overall", n: int = 100) -> list[dict]:
@@ -30,6 +31,7 @@ def build_list(league: str = "great", category: str = "overall", n: int = 100) -
         base = species["baseStats"]
         ideal = best_iv_for_cap(base["atk"], base["def"], base["hp"], cp_cap)
         types = [t for t in species.get("types", []) if t != "none"]
+        style = row_style(types)
 
         results.append({
             "rank": rank,
@@ -37,6 +39,8 @@ def build_list(league: str = "great", category: str = "overall", n: int = 100) -
             "name": mon["speciesName"],
             "score": mon["score"],
             "types": types,
+            "row_background": style["background"],
+            "row_text_color": style["color"],
             "ideal_iv": f"{ideal['atk']}/{ideal['def']}/{ideal['hp']}",
             "ideal_level": ideal["level"],
             "cp_at_ideal": ideal["cp"],
