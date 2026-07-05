@@ -13,9 +13,10 @@ Run:
 """
 
 from flask import Flask, jsonify, render_template, request
+from dotenv import load_dotenv
 
 from pvpoke_data import LEAGUE_CP_CAPS
-from build_pokemon_list import build_list
+from build_pokemon_list import build_list, build_low_atk_list, build_high_atk_list
 
 app = Flask(__name__)
 
@@ -40,10 +41,14 @@ def _parse_query_args():
 def index():
     league, category, n = _parse_query_args()
     pokemon = build_list(league, category, n)
+    low_atk_list = build_low_atk_list(pokemon)
+    high_atk_list = build_high_atk_list(pokemon)
 
     return render_template(
         "index.html",
         pokemon=pokemon,
+        low_atk_list=low_atk_list,
+        high_atk_list=high_atk_list,
         league=league,
         category=category,
         n=n,
@@ -60,4 +65,5 @@ def api_rankings():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    debug_mode = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
+    app.run(debug=debug_mode)

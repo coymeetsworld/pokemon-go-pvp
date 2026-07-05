@@ -1,3 +1,4 @@
+.env
 .pgo/
 .pvpoke_cache/
 tmp/

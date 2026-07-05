@@ -49,6 +49,29 @@ def build_list(league: str = "great", category: str = "overall", n: int = 100) -
     return results
 
 
+def build_low_atk_list(pokemon_list) -> list[dict]:
+    low_atk_list = []
+
+    for pokemon in pokemon_list:
+      atk_iv = int(pokemon["ideal_iv"].split(r'/')[0])
+      def_iv = int(pokemon["ideal_iv"].split(r'/')[1])
+      hp_iv = int(pokemon["ideal_iv"].split(r'/')[2])
+      if atk_iv in range(0, 6) and def_iv >= 10 and hp_iv >= 10:
+        low_atk_list.append(pokemon["name"].split()[0].strip().lower())
+    return low_atk_list
+
+
+def build_high_atk_list(pokemon_list) -> list[dict]:
+    high_atk_list = []
+    for pokemon in pokemon_list:
+      atk_iv = int(pokemon["ideal_iv"].split(r'/')[0])
+      def_iv = int(pokemon["ideal_iv"].split(r'/')[1])
+      hp_iv = int(pokemon["ideal_iv"].split(r'/')[2])
+      if atk_iv >= 10 and def_iv >= 10 and hp_iv >= 10:
+        high_atk_list.append(pokemon["name"].split()[0].strip().lower())
+    return high_atk_list
+
+
 if __name__ == "__main__":
     top_pokemon = build_list("great", "overall", 100)
 
