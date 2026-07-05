@@ -1,0 +1,4 @@
+.pgo/
+.pvpoke_cache/
+tmp/
+__pycache__/

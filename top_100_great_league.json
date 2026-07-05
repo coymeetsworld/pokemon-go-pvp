@@ -1,0 +1,902 @@
+[
+  {
+    "rank": 1,
+    "speciesId": "mimikyu",
+    "name": "Mimikyu (Busted)",
+    "score": 95.9,
+    "ideal_iv": "1/14/15",
+    "ideal_level": 25.5,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 2,
+    "speciesId": "lickilicky",
+    "name": "Lickilicky",
+    "score": 93.7,
+    "ideal_iv": "0/15/10",
+    "ideal_level": 23.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 3,
+    "speciesId": "tinkaton",
+    "name": "Tinkaton",
+    "score": 92.6,
+    "ideal_iv": "1/14/14",
+    "ideal_level": 25.5,
+    "cp_at_ideal": 1497
+  },
+  {
+    "rank": 4,
+    "speciesId": "altaria",
+    "name": "Altaria",
+    "score": 92.2,
+    "ideal_iv": "0/14/15",
+    "ideal_level": 29,
+    "cp_at_ideal": 1497
+  },
+  {
+    "rank": 5,
+    "speciesId": "empoleon",
+    "name": "Empoleon",
+    "score": 92.2,
+    "ideal_iv": "0/13/15",
+    "ideal_level": 19.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 6,
+    "speciesId": "altaria_shadow",
+    "name": "Altaria (Shadow)",
+    "score": 91.9,
+    "ideal_iv": "0/14/15",
+    "ideal_level": 29,
+    "cp_at_ideal": 1497
+  },
+  {
+    "rank": 7,
+    "speciesId": "empoleon_shadow",
+    "name": "Empoleon (Shadow)",
+    "score": 91.9,
+    "ideal_iv": "0/13/15",
+    "ideal_level": 19.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 8,
+    "speciesId": "quagsire_shadow",
+    "name": "Quagsire (Shadow)",
+    "score": 91.8,
+    "ideal_iv": "0/15/14",
+    "ideal_level": 29,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 9,
+    "speciesId": "quagsire",
+    "name": "Quagsire",
+    "score": 91.7,
+    "ideal_iv": "0/15/14",
+    "ideal_level": 29,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 10,
+    "speciesId": "jellicent",
+    "name": "Jellicent",
+    "score": 91.6,
+    "ideal_iv": "1/14/14",
+    "ideal_level": 24.5,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 11,
+    "speciesId": "forretress",
+    "name": "Forretress",
+    "score": 91.5,
+    "ideal_iv": "0/9/15",
+    "ideal_level": 25.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 12,
+    "speciesId": "ninetales",
+    "name": "Ninetales",
+    "score": 91.5,
+    "ideal_iv": "0/15/15",
+    "ideal_level": 25,
+    "cp_at_ideal": 1495
+  },
+  {
+    "rank": 13,
+    "speciesId": "ninetales_shadow",
+    "name": "Ninetales (Shadow)",
+    "score": 91.1,
+    "ideal_iv": "0/15/15",
+    "ideal_level": 25,
+    "cp_at_ideal": 1495
+  },
+  {
+    "rank": 14,
+    "speciesId": "feraligatr",
+    "name": "Feraligatr",
+    "score": 91,
+    "ideal_iv": "0/11/13",
+    "ideal_level": 20,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 15,
+    "speciesId": "forretress_shadow",
+    "name": "Forretress (Shadow)",
+    "score": 91,
+    "ideal_iv": "0/9/15",
+    "ideal_level": 25.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 16,
+    "speciesId": "corsola_galarian",
+    "name": "Corsola (Galarian)",
+    "score": 90.9,
+    "ideal_iv": "0/13/15",
+    "ideal_level": 50.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 17,
+    "speciesId": "jumpluff",
+    "name": "Jumpluff",
+    "score": 90.9,
+    "ideal_iv": "0/14/14",
+    "ideal_level": 43,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 18,
+    "speciesId": "clodsire",
+    "name": "Clodsire",
+    "score": 90.8,
+    "ideal_iv": "0/14/13",
+    "ideal_level": 30.5,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 19,
+    "speciesId": "corviknight",
+    "name": "Corviknight",
+    "score": 90.8,
+    "ideal_iv": "0/13/14",
+    "ideal_level": 23.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 20,
+    "speciesId": "fearow",
+    "name": "Fearow",
+    "score": 90.7,
+    "ideal_iv": "0/15/14",
+    "ideal_level": 28.5,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 21,
+    "speciesId": "azumarill",
+    "name": "Azumarill",
+    "score": 90.6,
+    "ideal_iv": "0/15/15",
+    "ideal_level": 45.5,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 22,
+    "speciesId": "feraligatr_shadow",
+    "name": "Feraligatr (Shadow)",
+    "score": 90.6,
+    "ideal_iv": "0/11/13",
+    "ideal_level": 20,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 23,
+    "speciesId": "kingdra",
+    "name": "Kingdra",
+    "score": 90.6,
+    "ideal_iv": "0/15/13",
+    "ideal_level": 21.5,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 24,
+    "speciesId": "guzzlord",
+    "name": "Guzzlord",
+    "score": 90.5,
+    "ideal_iv": "1/15/15",
+    "ideal_level": 19.5,
+    "cp_at_ideal": 1497
+  },
+  {
+    "rank": 25,
+    "speciesId": "lapras",
+    "name": "Lapras",
+    "score": 90.4,
+    "ideal_iv": "0/10/14",
+    "ideal_level": 22,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 26,
+    "speciesId": "corviknight_shadow",
+    "name": "Corviknight (Shadow)",
+    "score": 90.3,
+    "ideal_iv": "0/13/14",
+    "ideal_level": 23.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 27,
+    "speciesId": "furret",
+    "name": "Furret",
+    "score": 90.3,
+    "ideal_iv": "1/15/14",
+    "ideal_level": 35.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 28,
+    "speciesId": "kingdra_shadow",
+    "name": "Kingdra (Shadow)",
+    "score": 90.3,
+    "ideal_iv": "0/15/13",
+    "ideal_level": 21.5,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 29,
+    "speciesId": "dragonair_shadow",
+    "name": "Dragonair (Shadow)",
+    "score": 90.2,
+    "ideal_iv": "1/15/15",
+    "ideal_level": 34,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 30,
+    "speciesId": "sableye_shadow",
+    "name": "Sableye (Shadow)",
+    "score": 90.2,
+    "ideal_iv": "0/15/15",
+    "ideal_level": 49.5,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 31,
+    "speciesId": "seismitoad",
+    "name": "Seismitoad",
+    "score": 90.2,
+    "ideal_iv": "1/15/15",
+    "ideal_level": 22,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 32,
+    "speciesId": "umbreon",
+    "name": "Umbreon",
+    "score": 90.2,
+    "ideal_iv": "0/15/14",
+    "ideal_level": 27.5,
+    "cp_at_ideal": 1497
+  },
+  {
+    "rank": 33,
+    "speciesId": "medicham",
+    "name": "Medicham",
+    "score": 90.1,
+    "ideal_iv": "4/15/15",
+    "ideal_level": 50.5,
+    "cp_at_ideal": 1496
+  },
+  {
+    "rank": 34,
+    "speciesId": "talonflame",
+    "name": "Talonflame",
+    "score": 90.1,
+    "ideal_iv": "0/13/14",
+    "ideal_level": 26,
+    "cp_at_ideal": 1496
+  },
+  {
+    "rank": 35,
+    "speciesId": "dragonair",
+    "name": "Dragonair",
+    "score": 90,
+    "ideal_iv": "1/15/15",
+    "ideal_level": 34,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 36,
+    "speciesId": "oinkologne_female",
+    "name": "Oinkologne (Female)",
+    "score": 89.9,
+    "ideal_iv": "0/14/15",
+    "ideal_level": 23,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 37,
+    "speciesId": "sliggoo",
+    "name": "Sliggoo",
+    "score": 89.9,
+    "ideal_iv": "1/15/15",
+    "ideal_level": 28,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 38,
+    "speciesId": "sealeo",
+    "name": "Sealeo",
+    "score": 89.8,
+    "ideal_iv": "0/15/14",
+    "ideal_level": 38,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 39,
+    "speciesId": "greedent",
+    "name": "Greedent",
+    "score": 89.7,
+    "ideal_iv": "0/12/14",
+    "ideal_level": 24.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 40,
+    "speciesId": "sealeo_shadow",
+    "name": "Sealeo (Shadow)",
+    "score": 89.7,
+    "ideal_iv": "0/15/14",
+    "ideal_level": 38,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 41,
+    "speciesId": "diggersby",
+    "name": "Diggersby",
+    "score": 89.6,
+    "ideal_iv": "0/15/11",
+    "ideal_level": 50.5,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 42,
+    "speciesId": "dusclops",
+    "name": "Dusclops",
+    "score": 89.6,
+    "ideal_iv": "0/11/15",
+    "ideal_level": 45,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 43,
+    "speciesId": "grumpig",
+    "name": "Grumpig",
+    "score": 89.6,
+    "ideal_iv": "1/14/15",
+    "ideal_level": 24,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 44,
+    "speciesId": "cradily",
+    "name": "Cradily",
+    "score": 89.5,
+    "ideal_iv": "0/15/15",
+    "ideal_level": 26,
+    "cp_at_ideal": 1494
+  },
+  {
+    "rank": 45,
+    "speciesId": "florges",
+    "name": "Florges",
+    "score": 89.5,
+    "ideal_iv": "0/14/13",
+    "ideal_level": 17.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 46,
+    "speciesId": "lapras_shadow",
+    "name": "Lapras (Shadow)",
+    "score": 89.5,
+    "ideal_iv": "0/10/14",
+    "ideal_level": 22,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 47,
+    "speciesId": "sableye",
+    "name": "Sableye",
+    "score": 89.5,
+    "ideal_iv": "0/15/15",
+    "ideal_level": 49.5,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 48,
+    "speciesId": "wigglytuff",
+    "name": "Wigglytuff",
+    "score": 89.5,
+    "ideal_iv": "0/15/12",
+    "ideal_level": 30,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 49,
+    "speciesId": "dusclops_shadow",
+    "name": "Dusclops (Shadow)",
+    "score": 89.4,
+    "ideal_iv": "0/11/15",
+    "ideal_level": 45,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 50,
+    "speciesId": "moltres_galarian",
+    "name": "Moltres (Galarian)",
+    "score": 89.4,
+    "ideal_iv": "0/13/12",
+    "ideal_level": 18,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 51,
+    "speciesId": "blastoise",
+    "name": "Blastoise",
+    "score": 89.3,
+    "ideal_iv": "1/15/15",
+    "ideal_level": 23,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 52,
+    "speciesId": "clefable",
+    "name": "Clefable",
+    "score": 89.3,
+    "ideal_iv": "0/13/15",
+    "ideal_level": 23.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 53,
+    "speciesId": "mantine",
+    "name": "Mantine",
+    "score": 89.3,
+    "ideal_iv": "0/15/13",
+    "ideal_level": 27.5,
+    "cp_at_ideal": 1495
+  },
+  {
+    "rank": 54,
+    "speciesId": "talonflame_shadow",
+    "name": "Talonflame (Shadow)",
+    "score": 89.3,
+    "ideal_iv": "0/13/14",
+    "ideal_level": 26,
+    "cp_at_ideal": 1496
+  },
+  {
+    "rank": 55,
+    "speciesId": "mandibuzz",
+    "name": "Mandibuzz",
+    "score": 89.2,
+    "ideal_iv": "0/13/15",
+    "ideal_level": 27.5,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 56,
+    "speciesId": "dewgong",
+    "name": "Dewgong",
+    "score": 89.1,
+    "ideal_iv": "0/12/15",
+    "ideal_level": 29.5,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 57,
+    "speciesId": "gastrodon",
+    "name": "Gastrodon",
+    "score": 89.1,
+    "ideal_iv": "1/15/14",
+    "ideal_level": 24.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 58,
+    "speciesId": "malamar",
+    "name": "Malamar",
+    "score": 89.1,
+    "ideal_iv": "0/15/9",
+    "ideal_level": 24.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 59,
+    "speciesId": "steelix_shadow",
+    "name": "Steelix (Shadow)",
+    "score": 89.1,
+    "ideal_iv": "0/14/15",
+    "ideal_level": 24,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 60,
+    "speciesId": "drapion_shadow",
+    "name": "Drapion (Shadow)",
+    "score": 89,
+    "ideal_iv": "2/15/14",
+    "ideal_level": 23,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 61,
+    "speciesId": "ninetales_alolan",
+    "name": "Ninetales (Alolan)",
+    "score": 89,
+    "ideal_iv": "0/14/12",
+    "ideal_level": 25,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 62,
+    "speciesId": "charjabug",
+    "name": "Charjabug",
+    "score": 88.9,
+    "ideal_iv": "0/13/15",
+    "ideal_level": 38.5,
+    "cp_at_ideal": 1497
+  },
+  {
+    "rank": 63,
+    "speciesId": "ninetales_alolan_shadow",
+    "name": "Ninetales (Alolan) (Shadow)",
+    "score": 88.8,
+    "ideal_iv": "0/14/12",
+    "ideal_level": 25,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 64,
+    "speciesId": "swampert",
+    "name": "Swampert",
+    "score": 88.8,
+    "ideal_iv": "0/14/14",
+    "ideal_level": 19,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 65,
+    "speciesId": "aegislash_shield",
+    "name": "Aegislash (Blade)",
+    "score": 88.7,
+    "ideal_iv": "0/12/14",
+    "ideal_level": 50,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 66,
+    "speciesId": "bastiodon",
+    "name": "Bastiodon",
+    "score": 88.7,
+    "ideal_iv": "0/15/14",
+    "ideal_level": 50,
+    "cp_at_ideal": 1497
+  },
+  {
+    "rank": 67,
+    "speciesId": "marowak_shadow",
+    "name": "Marowak (Shadow)",
+    "score": 88.7,
+    "ideal_iv": "0/14/14",
+    "ideal_level": 33.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 68,
+    "speciesId": "swampert_shadow",
+    "name": "Swampert (Shadow)",
+    "score": 88.7,
+    "ideal_iv": "0/14/14",
+    "ideal_level": 19,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 69,
+    "speciesId": "stunfisk_galarian",
+    "name": "Stunfisk (Galarian)",
+    "score": 88.5,
+    "ideal_iv": "0/12/15",
+    "ideal_level": 27,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 70,
+    "speciesId": "registeel",
+    "name": "Registeel",
+    "score": 88.4,
+    "ideal_iv": "0/8/15",
+    "ideal_level": 24,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 71,
+    "speciesId": "stunfisk",
+    "name": "Stunfisk",
+    "score": 88.4,
+    "ideal_iv": "0/12/15",
+    "ideal_level": 27,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 72,
+    "speciesId": "dusknoir_shadow",
+    "name": "Dusknoir (Shadow)",
+    "score": 88.3,
+    "ideal_iv": "0/14/13",
+    "ideal_level": 24,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 73,
+    "speciesId": "hydreigon_shadow",
+    "name": "Hydreigon (Shadow)",
+    "score": 88.3,
+    "ideal_iv": "0/15/10",
+    "ideal_level": 15.5,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 74,
+    "speciesId": "dunsparce",
+    "name": "Dunsparce",
+    "score": 88.2,
+    "ideal_iv": "0/14/12",
+    "ideal_level": 40,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 75,
+    "speciesId": "jumpluff_shadow",
+    "name": "Jumpluff (Shadow)",
+    "score": 88.2,
+    "ideal_iv": "0/14/14",
+    "ideal_level": 43,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 76,
+    "speciesId": "malamar_shadow",
+    "name": "Malamar (Shadow)",
+    "score": 88.2,
+    "ideal_iv": "0/15/9",
+    "ideal_level": 24.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 77,
+    "speciesId": "pelipper",
+    "name": "Pelipper",
+    "score": 88.1,
+    "ideal_iv": "0/12/15",
+    "ideal_level": 27,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 78,
+    "speciesId": "melmetal",
+    "name": "Melmetal",
+    "score": 88,
+    "ideal_iv": "1/15/14",
+    "ideal_level": 15.5,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 79,
+    "speciesId": "seaking",
+    "name": "Seaking",
+    "score": 88,
+    "ideal_iv": "0/14/14",
+    "ideal_level": 26.5,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 80,
+    "speciesId": "turtonator",
+    "name": "Turtonator",
+    "score": 88,
+    "ideal_iv": "0/12/14",
+    "ideal_level": 26,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 81,
+    "speciesId": "dondozo",
+    "name": "Dondozo",
+    "score": 87.9,
+    "ideal_iv": "0/15/15",
+    "ideal_level": 19,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 82,
+    "speciesId": "gourgeist_large",
+    "name": "Gourgeist (Large)",
+    "score": 87.9,
+    "ideal_iv": "1/14/15",
+    "ideal_level": 22.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 83,
+    "speciesId": "milotic",
+    "name": "Milotic",
+    "score": 87.9,
+    "ideal_iv": "0/15/11",
+    "ideal_level": 19,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 84,
+    "speciesId": "morpeko_full_belly",
+    "name": "Morpeko (Hangry)",
+    "score": 87.9,
+    "ideal_iv": "1/15/15",
+    "ideal_level": 29,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 85,
+    "speciesId": "oranguru",
+    "name": "Oranguru",
+    "score": 87.9,
+    "ideal_iv": "0/13/14",
+    "ideal_level": 23.5,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 86,
+    "speciesId": "gourgeist_average",
+    "name": "Gourgeist (Average)",
+    "score": 87.8,
+    "ideal_iv": "0/14/13",
+    "ideal_level": 24,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 87,
+    "speciesId": "gourgeist_super",
+    "name": "Gourgeist (Super)",
+    "score": 87.8,
+    "ideal_iv": "1/15/14",
+    "ideal_level": 21.5,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 88,
+    "speciesId": "hydreigon",
+    "name": "Hydreigon",
+    "score": 87.8,
+    "ideal_iv": "0/15/10",
+    "ideal_level": 15.5,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 89,
+    "speciesId": "shelgon",
+    "name": "Shelgon",
+    "score": 87.8,
+    "ideal_iv": "1/15/14",
+    "ideal_level": 28,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 90,
+    "speciesId": "samurott",
+    "name": "Samurott",
+    "score": 87.6,
+    "ideal_iv": "0/14/14",
+    "ideal_level": 20,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 91,
+    "speciesId": "shelgon_shadow",
+    "name": "Shelgon (Shadow)",
+    "score": 87.6,
+    "ideal_iv": "1/15/14",
+    "ideal_level": 28,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 92,
+    "speciesId": "doublade",
+    "name": "Doublade",
+    "score": 87.5,
+    "ideal_iv": "0/11/14",
+    "ideal_level": 23.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 93,
+    "speciesId": "drapion",
+    "name": "Drapion",
+    "score": 87.5,
+    "ideal_iv": "2/15/14",
+    "ideal_level": 23,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 94,
+    "speciesId": "morgrem",
+    "name": "Morgrem",
+    "score": 87.5,
+    "ideal_iv": "1/15/15",
+    "ideal_level": 50.5,
+    "cp_at_ideal": 1496
+  },
+  {
+    "rank": 95,
+    "speciesId": "castform_sunny",
+    "name": "Castform (Sunny)",
+    "score": 87.4,
+    "ideal_iv": "0/14/15",
+    "ideal_level": 41.5,
+    "cp_at_ideal": 1496
+  },
+  {
+    "rank": 96,
+    "speciesId": "dusknoir",
+    "name": "Dusknoir",
+    "score": 87.4,
+    "ideal_iv": "0/14/13",
+    "ideal_level": 24,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 97,
+    "speciesId": "gourgeist_small",
+    "name": "Gourgeist (Small)",
+    "score": 87.4,
+    "ideal_iv": "0/15/13",
+    "ideal_level": 25.5,
+    "cp_at_ideal": 1500
+  },
+  {
+    "rank": 98,
+    "speciesId": "crustle",
+    "name": "Crustle",
+    "score": 87.3,
+    "ideal_iv": "0/13/13",
+    "ideal_level": 22.5,
+    "cp_at_ideal": 1498
+  },
+  {
+    "rank": 99,
+    "speciesId": "spidops",
+    "name": "Spidops",
+    "score": 87.3,
+    "ideal_iv": "0/13/14",
+    "ideal_level": 39.5,
+    "cp_at_ideal": 1499
+  },
+  {
+    "rank": 100,
+    "speciesId": "toxapex",
+    "name": "Toxapex",
+    "score": 87.2,
+    "ideal_iv": "0/15/15",
+    "ideal_level": 40.5,
+    "cp_at_ideal": 1499
+  }
+]

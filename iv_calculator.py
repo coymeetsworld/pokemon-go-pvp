@@ -1,0 +1,102 @@
+"""
+iv_calculator.py
+
+Computes the "ideal" IV spread for a Pokemon under a given CP cap, the same
+way PvPoke does it: brute-force every possible IV combination (0-15 for each
+of Attack/Defense/HP = 4096 combos), find the highest level each combo can
+reach without exceeding the CP cap, and rank combos by "stat product"
+(Atk * Def * HP at that level). The #1 ranked combo is the "ideal" IV spread.
+
+Verified against PvPoke's published values:
+  Mimikyu   (base 177/199/146) @ CP1500 -> IV 1/14/15  [matches]
+  Lickilicky(base 161/181/242) @ CP1500 -> IV 0/15/10  [matches]
+"""
+
+import math
+
+# CP Multiplier per level (standard Pokemon GO values, levels 1-51 in .5 steps)
+CPM = {
+    1: 0.094, 1.5: 0.135137432, 2: 0.16639787, 2.5: 0.192650919, 3: 0.21573247,
+    3.5: 0.236572661, 4: 0.25572005, 4.5: 0.273530381, 5: 0.29024988, 5.5: 0.306057377,
+    6: 0.3210876, 6.5: 0.335445036, 7: 0.34921268, 7.5: 0.362457751, 8: 0.37523559,
+    8.5: 0.387592406, 9: 0.39956728, 9.5: 0.411193551, 10: 0.42250001, 10.5: 0.432926419,
+    11: 0.44310755, 11.5: 0.453059959, 12: 0.46279839, 12.5: 0.472336083, 13: 0.48168495,
+    13.5: 0.4908558, 14: 0.49985844, 14.5: 0.508701765, 15: 0.51739395, 15.5: 0.525942511,
+    16: 0.53435433, 16.5: 0.542635767, 17: 0.55079269, 17.5: 0.558830576, 18: 0.56675452,
+    18.5: 0.574569153, 19: 0.58227891, 19.5: 0.589887917, 20: 0.59740001, 20.5: 0.604818814,
+    21: 0.61215729, 21.5: 0.619399365, 22: 0.62656713, 22.5: 0.633644533, 23: 0.64065295,
+    23.5: 0.647576385, 24: 0.65442452, 24.5: 0.661214806, 25: 0.667934, 25.5: 0.674577537,
+    26: 0.68116492, 26.5: 0.687680648, 27: 0.69414365, 27.5: 0.700538673, 28: 0.70687562,
+    28.5: 0.713164996, 29: 0.71939909, 29.5: 0.725571552, 30: 0.7317, 30.5: 0.734741009,
+    31: 0.73776948, 31.5: 0.740785574, 32: 0.74378943, 32.5: 0.746781211, 33: 0.74976104,
+    33.5: 0.752729087, 34: 0.75568551, 34.5: 0.758630378, 35: 0.76156384, 35.5: 0.764486065,
+    36: 0.76739717, 36.5: 0.770297266, 37: 0.7731865, 37.5: 0.776064962, 38: 0.77893275,
+    38.5: 0.781790055, 39: 0.78463697, 39.5: 0.787473578, 40: 0.79030001, 40.5: 0.792803968,
+    41: 0.79530001, 41.5: 0.797803968, 42: 0.80030001, 42.5: 0.802803968, 43: 0.80530001,
+    43.5: 0.807803968, 44: 0.81030001, 44.5: 0.812803968, 45: 0.81530001, 45.5: 0.817803968,
+    46: 0.82030001, 46.5: 0.822803968, 47: 0.82530001, 47.5: 0.827803968, 48: 0.83030001,
+    48.5: 0.832803968, 49: 0.83530001, 49.5: 0.837803968, 50: 0.84030001, 50.5: 0.842803968,
+    51: 0.84530001,
+}
+
+_LEVELS = sorted(CPM.keys())
+
+
+def _calc_cp(atk: float, defn: float, hp: float, cpm: float) -> int:
+    return math.floor((atk * (defn ** 0.5) * (hp ** 0.5) * (cpm ** 2)) / 10)
+
+
+def best_iv_for_cap(base_atk: int, base_def: int, base_hp: int,
+                     cp_cap: int, max_level: float = 51.0) -> dict:
+    """
+    Find the highest-stat-product IV spread for a species under a CP cap.
+
+    Returns dict: {"atk": iv, "def": iv, "hp": iv, "level": lvl, "cp": cp, "stat_product": p}
+    """
+    levels = [l for l in _LEVELS if l <= max_level]
+    best = None
+
+    for iv_atk in range(16):
+        for iv_def in range(16):
+            for iv_hp in range(16):
+                a = base_atk + iv_atk
+                d = base_def + iv_def
+                h = base_hp + iv_hp
+
+                # Find the highest level that keeps CP at or under the cap.
+                chosen_level = None
+                chosen_cp = None
+                for lvl in levels:
+                    c = _calc_cp(a, d, h, CPM[lvl])
+                    if c <= cp_cap:
+                        chosen_level = lvl
+                        chosen_cp = c
+                    else:
+                        break  # CP only increases with level, so we can stop early
+
+                if chosen_level is None:
+                    continue  # even level 1 exceeds the cap
+
+                cpm = CPM[chosen_level]
+                stat_atk = a * cpm
+                stat_def = d * cpm
+                stat_hp = math.floor(h * cpm)
+                product = stat_atk * stat_def * stat_hp
+
+                if best is None or product > best["stat_product"]:
+                    best = {
+                        "atk": iv_atk, "def": iv_def, "hp": iv_hp,
+                        "level": chosen_level, "cp": chosen_cp,
+                        "stat_product": product,
+                    }
+    return best
+
+
+if __name__ == "__main__":
+    mimikyu = best_iv_for_cap(177, 199, 146, 1500)
+    print("Mimikyu ideal IV:", f"{mimikyu['atk']}/{mimikyu['def']}/{mimikyu['hp']}",
+          f"(level {mimikyu['level']}, CP {mimikyu['cp']})")
+
+    lickilicky = best_iv_for_cap(161, 181, 242, 1500)
+    print("Lickilicky ideal IV:", f"{lickilicky['atk']}/{lickilicky['def']}/{lickilicky['hp']}",
+          f"(level {lickilicky['level']}, CP {lickilicky['cp']})")
