@@ -1,7 +1,13 @@
+.ansible_control
+group_vars/vault.yml
+
 defaults
 files
 handlers
 meta
 tasks
 templates
-vars
+inventory
+roles
+site.yml
+ansible.cfg
