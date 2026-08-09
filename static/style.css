@@ -61,3 +61,11 @@ tr:hover { filter: brightness(0.95); }
   font-weight: 600;
   margin-right: 0.25rem;
 }
+
+#low-atk-search, #high-atk-search {
+  display: block;
+  background: #f0f2f5;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-family: monospace;
+}

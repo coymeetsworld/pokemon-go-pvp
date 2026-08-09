@@ -5,6 +5,31 @@
   <title>Pokemon GO PvP Rankings</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='pokemontypes.css') }}">
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('copy-low-atk-btn').addEventListener('click', () => {
+        const btn = document.getElementById('copy-low-atk-btn');
+        const text = document.getElementById('low-atk-search').innerText;
+        navigator.clipboard.writeText(text)
+          .then(() => {
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = 'Copy'; }, 1200);
+          })
+          .catch(err => console.error('Copy failed:', err));
+      });
+
+      document.getElementById('copy-high-atk-btn').addEventListener('click', () => {
+        const btn = document.getElementById('copy-high-atk-btn');
+        const text = document.getElementById('high-atk-search').innerText;
+        navigator.clipboard.writeText(text)
+          .then(() => {
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = 'Copy'; }, 1200);
+        })
+        .catch(err => console.error('Copy failed:', err));
+      });
+    });
+  </script>
 </head>
 <body>
   <h1>Pokemon GO PvP Rankings</h1>
@@ -36,19 +61,29 @@
 
   <h2>Pokemon Go Search String</h2>
   <p>Copy and paste these search strings into your search to filter out Pokemon that are candidates for being good in PVP</p>
-  <p>Low Atk, High Def & HP</p>
-  <span>
+  {% if low_atk_list|length != 0 %}
+    <p>Low Atk, High Def & HP</p>
+    <button type="button" id="copy-low-atk-btn">Copy</button>
+  {% endif %}
+  <span id="low-atk-search">
     {% for pokemon in low_atk_list %}
       {{pokemon}},
     {% endfor %}
-    &!#&0-1attack&3-4hp&3-4defense
+    {% if low_atk_list|length != 0 %}
+      &!#&0-1attack&3-4hp&3-4defense
+    {% endif %}
   </span>
-  <p>High Atk, Def & HP</p>
-  <span>
+  {% if high_atk_list|length != 0 %}
+    <p>High Atk, Def & HP</p>
+    <button type="button" id="copy-high-atk-btn">Copy</button>
+  {% endif %}
+  <span id="high-atk-search">
     {% for pokemon in high_atk_list %}
       {{pokemon}},
     {% endfor %}
-    &!#&3-4attack&3-4hp&3-4defense
+    {% if high_atk_list|length != 0 %}
+      &!#&3-4attack&3-4hp&3-4defense
+    {% endif %}
   </span>
 
   <table>
