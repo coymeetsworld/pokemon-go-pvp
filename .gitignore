@@ -3,3 +3,4 @@
 .pvpoke_cache/
 tmp/
 __pycache__/
+precomputed/
