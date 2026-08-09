@@ -1,0 +1,17 @@
+---
+
+- name: Build and configure DigitalOcean Droplet
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Create a DigitalOcean Droplet
+    - name: Add SSH Key to Droplet
+    - name: Add DNS Record
+    - name: Install nginx
+    - name: Configure nginx
+    - name: Create system user pvpoke
+    - name: Configure system user pvpoke
+    - name: Deploy Pokemon Go PvP App
+    - name: Install Dependencies for Pokemon Go PvP App
+    - name: Configure Pokemon Go PvP App

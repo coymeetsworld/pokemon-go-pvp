@@ -7,5 +7,5 @@ App that will be used to create a custom search string for Pokemon Go to filter 
 python3 -m venv .pgo
 source .pgo/bin/activate
 pip install -r requirements.txt
-python app.py
+python main.py
 ```
