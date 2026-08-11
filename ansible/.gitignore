@@ -1,13 +1,12 @@
 .ansible_control
 group_vars/vault.yml
 
-defaults
-files
-handlers
-meta
-tasks
-templates
-inventory
-roles
+#defaults
+#files
+#handlers
+#meta
+#tasks
+#templates
+#inventory
 site.yml
 ansible.cfg

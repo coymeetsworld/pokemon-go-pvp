@@ -25,3 +25,30 @@ Note that the ansible playbooks depend on .ansible_control being the location of
 # Configure Secrets
 Create ansible/.env file and add following line:
 `export DIGITALOCEAN_TOKEN="dop_v1_..."`
+Then run following:
+```
+set -a
+source .env
+set +a
+echo $DIGITALOCEAN_TOKEN
+```
+Confirm token works:
+`curl -s -X GET -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" "https://api.digitalocean.com/v2/sizes"`
+
+# Scopes needed for token:
+* Fully Scoped Access
+  * actions (1): read
+  * regions (1): read
+  * sizes (1): read
+  * domain (4): create, read, update, delete
+* Create Access
+  * droplet
+* Read Access
+  * droplet
+  * image
+  * snapshot
+  * ssh_key
+  * vpc
+* Delete Access
+  * droplet
+  * ssh_key

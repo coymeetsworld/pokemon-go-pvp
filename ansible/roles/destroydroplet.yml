@@ -1,0 +1,31 @@
+---
+- name: Destroy droplet
+  hosts: localhost
+  become: yes
+
+  vars:
+    digitalocean_token: "{{ lookup('ansible.builtin.env', 'DIGITALOCEAN_TOKEN') }}"
+
+  tasks:
+    - name: Destroy droplet
+      digitalocean.cloud.droplet:
+        state: absent
+        token: "{{ digitalocean_token }}"
+        name: pokemongopvp.com
+        region: sfo2
+        unique_name: true
+      
+    - name: Get existing DNS records for pokemongopvp.com
+      digitalocean.cloud.domain_records_info:
+        token: "{{ digitalocean_token }}"
+        domain_name: pokemongopvp.com
+      register: existing_dns_records
+    
+    - name: Destroy all A records via direct API
+      ansible.builtin.uri:
+        url: "https://api.digitalocean.com/v2/domains/pokemongopvp.com/records/{{ item.id }}"
+        method: DELETE
+        headers:
+          Authorization: "Bearer {{ digitalocean_token }}"
+        status_code: [204, 404]
+      loop: "{{ existing_dns_records.domain_records | selectattr('type', 'equalto', 'A') | list }}"
