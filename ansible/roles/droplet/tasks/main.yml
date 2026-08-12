@@ -1,0 +1,24 @@
+---
+- name: Create a DigitalOcean Droplet
+  digitalocean.cloud.droplet:
+    state: present
+    token: "{{ digitalocean_token }}"
+    name: pokemongopvp.com
+    region: sfo2
+    ssh_keys: ["{{ ssh_key.ssh_key.id }}"]
+    size: s-1vcpu-512mb-10gb
+    image: ubuntu-22-04-x64
+    ipv6: false
+    backups: false
+    unique_name: true
+  register: droplet
+
+# Droplet creation can return before networking fully assigned, thus the retry attempts
+- name: Extract public IPv4
+  ansible.builtin.set_fact:
+    droplet_ip: "{{ (droplet.droplet.networks.v4 | selectattr('type', 'equalto', 'public')).0.ip_address }}"
+  until: droplet_ip is defined and droplet_ip | length > 0
+  retries: 10
+  delay: 5
+
+...

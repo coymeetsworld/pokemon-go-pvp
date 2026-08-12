@@ -1,0 +1,49 @@
+---
+
+# Freshly created droplets can take some time for cloud-init to finish and sshd to start accepting connections. Confirming we can ssh before attemping any droplet configurations.
+- name: Wait for SSH to become available on the droplet before configuring
+  ansible.builtin.wait_for:
+    host: pokemongopvp.com
+    port: 22
+    delay: 5
+    timeout: 120
+
+- name: Initial system setup (requires superuser privilege)
+  block:
+    - name: Install acl package (required for become with unprivileged users)
+      ansible.builtin.apt:
+        name: acl
+        state: present
+
+    - name: Create group pvpoke
+      ansible.builtin.group:
+        name: pvpoke
+        state: present
+
+    - name: Create system user pvpoke
+      ansible.builtin.user:
+        name: pvpoke
+        group: pvpoke
+        state: present
+        system: yes
+
+    # Ansible will create this directory, but put a warning when doing so given the permission setting. Will create explicitly just so we don't see the warning on runtime.
+    - name: Create ansible tmp directory for pvpoke user
+      ansible.builtin.file:
+        path: /home/pvpoke/.ansible/tmp
+        state: directory
+        owner: pvpoke
+        group: pvpoke
+        mode: '0700'
+      become: true 
+
+
+    - name: Create directory for Pokemon Go PvP App
+      ansible.builtin.file:
+        path: /opt/pvpoke
+        state: directory
+        owner: pvpoke
+        group: pvpoke
+  become: true
+
+...

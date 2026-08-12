@@ -1,0 +1,52 @@
+---
+
+# domain_record internal existence of DNS records os not reliable, script has a bug that creates multiple copies of the A records. Need to manually confirm the records don't exist before trying to add.
+- name: Get existing DNS A records
+  digitalocean.cloud.domain_records_info:
+    token: "{{ digitalocean_token }}"
+    domain_name: pokemongopvp.com
+  register: existing_dns_records
+
+- name: Remove any A record for @ or www that doesn't match the current droplet IP
+  ansible.builtin.uri:
+    url: "https://api.digitalocean.com/v2/domains/pokemongopvp.com/records/{{ item.id }}"
+    method: DELETE
+    headers:
+      Authorization: "Bearer {{ digitalocean_token }}"
+    status_code: [204, 404]
+  loop: "{{ existing_dns_records.domain_records | selectattr('type', 'equalto', 'A') | selectattr('name', 'in', ['@', 'www']) | rejectattr('data', 'equalto', droplet_ip) | list }}"
+
+- name: Re-fetch DNS records after cleanup
+  digitalocean.cloud.domain_records_info:
+    token: "{{ digitalocean_token }}"
+    domain_name: pokemongopvp.com
+  register: current_dns_records
+
+- name: Determine which A records already correctly point at this droplet
+  ansible.builtin.set_fact:
+    current_a_records: "{{ current_dns_records.domain_records | selectattr('type', 'equalto', 'A') | selectattr('data', 'equalto', droplet_ip) | map(attribute='name') | list }}"
+
+- name: Create domain A records for pokemongopvp.com, www and apex
+  digitalocean.cloud.domain_record:
+    state: present
+    token: "{{ digitalocean_token }}"
+    domain_name: pokemongopvp.com
+    type: A
+    name: "{{ item }}"
+    data: "{{ droplet_ip }}"
+    ttl: 60
+  loop:
+    - "@"
+    - "www"
+  when: item not in current_a_records
+
+
+- name: Wait for DNS to resolve to the new droplet IP
+  ansible.builtin.command: "dig +short pokemongopvp.com"
+  register: dns_check
+  until: droplet_ip in dns_check.stdout_lines
+  retries: 30
+  delay: 10
+  changed_when: false
+
+...

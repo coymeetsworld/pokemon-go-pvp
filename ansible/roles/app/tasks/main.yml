@@ -1,0 +1,11 @@
+---
+
+- name: Clone Pokemon Go PvP App repository
+  ansible.builtin.git:
+    repo: https://github.com/coymeetsworld/pokemon-go-pvp.git
+    dest: /opt/pvpoke
+    version: main
+  become: true
+  become_user: pvpoke
+
+...

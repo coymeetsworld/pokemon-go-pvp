@@ -1,0 +1,17 @@
+---
+- name: Provision DigitalOcean infrastructure
+  hosts: localhost
+  connection: local
+  roles:
+    - { role: ssh_key, tags: ssh_key }
+    - { role: droplet, tags: droplet }
+    - { role: dns, tags: dns }
+
+- name: Configure DigitalOcean Droplet
+  hosts: pokemongopvp
+  become: yes
+  gather_facts: false
+  roles:
+    - { role: common, tags: common }
+    - { role: app, tags: app }
+...
