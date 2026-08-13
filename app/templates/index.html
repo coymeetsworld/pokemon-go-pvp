@@ -17,6 +17,16 @@
           })
           .catch(err => console.error('Copy failed:', err));
       });
+      document.getElementById('copy-low-atk-btn').addEventListener('touchend', () => {
+        const btn = document.getElementById('copy-low-atk-btn');
+        const text = document.getElementById('low-atk-search').innerText;
+        navigator.clipboard.writeText(text)
+          .then(() => {
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = 'Copy'; }, 1200);
+          })
+          .catch(err => console.error('Copy failed:', err));
+      });
 
       document.getElementById('copy-high-atk-btn').addEventListener('click', () => {
         const btn = document.getElementById('copy-high-atk-btn');
@@ -28,6 +38,18 @@
         })
         .catch(err => console.error('Copy failed:', err));
       });
+
+      document.getElementById('copy-high-atk-btn').addEventListener('touchend', () => {
+        const btn = document.getElementById('copy-high-atk-btn');
+        const text = document.getElementById('high-atk-search').innerText;
+        navigator.clipboard.writeText(text)
+          .then(() => {
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = 'Copy'; }, 1200);
+        })
+        .catch(err => console.error('Copy failed:', err));
+      });
+
     });
   </script>
 </head>
