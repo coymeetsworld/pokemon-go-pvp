@@ -1,0 +1,37 @@
+---
+
+- name: Generate initial PokemonGoPvP Cache (can take a few minutes)
+  ansible.builtin.command:
+    cmd: /opt/pvpoke/app/.venv/bin/python3 /opt/pvpoke/app/generate_cache.py
+    creates: /opt/pvpoke/app/precomputed/
+  become: true
+  become_user: pvpoke
+  async: 600 # allow up to 10 minutes
+  poll: 15 # check every 15 seconds
+
+- name: Add systemd service for PokemonGoPvP Cache generation
+  ansible.builtin.template:
+    src: pvpoke-cache.service.j2
+    dest: /etc/systemd/system/pvpoke-cache.service
+  notify:
+    - Reload systemd
+    - Restart PokemonGoPvP Cache Service
+
+- name: Add systemd timer for PokemonGoPvP Cache generation
+  ansible.builtin.template:
+    src: pvpoke-cache.timer.j2
+    dest: /etc/systemd/system/pvpoke-cache.timer
+  notify:
+    - Reload systemd
+    - Restart PokemonGoPvP Cache Timer
+
+- name: Enable and start PokemonGoPvP Cache timer
+  ansible.builtin.systemd:
+    name: pvpoke-cache.timer
+    enabled: true
+    state: started
+  notify:
+    - Reload systemd
+    - Restart PokemonGoPvP App
+
+...

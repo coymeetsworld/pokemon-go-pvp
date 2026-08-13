@@ -1,0 +1,30 @@
+---
+
+- name: Clone Pokemon Go PvP App repository
+  ansible.builtin.git:
+    repo: https://github.com/coymeetsworld/pokemon-go-pvp.git
+    dest: /opt/pvpoke
+    version: main
+  become: true
+  become_user: pvpoke
+
+
+#- name: Test gunicorn service
+#  ansible.builtin.command:
+#    cmd: /opt/pvpoke/.venv/bin/gunicorn --bind 0.0.0.0:8000 main:app
+
+- name: Create systemd service for Pokemon Go PvP App
+  ansible.builtin.template:
+    src: pvpoke.service.j2
+    dest: /etc/systemd/system/pvpoke.service
+  notify:
+    - Reload systemd
+    - Restart PokemonGoPvP App
+
+- name: Enable and start Pokemon Go PvP App service
+  ansible.builtin.systemd:
+    name: pvpoke
+    enabled: true
+    state: started
+
+...

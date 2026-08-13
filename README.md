@@ -25,12 +25,16 @@ Note that the ansible playbooks depend on .ansible_control being the location of
 # Configure Secrets
 Create ansible/.env file and add following line:
 `export DIGITALOCEAN_TOKEN="dop_v1_..."`
+`export EMAIL_ADDRESS=""`
+email address needed when Certbot tasks are run to generate certs for the app.
+
 Then run following:
 ```
 set -a
 source .env
 set +a
 echo $DIGITALOCEAN_TOKEN
+echo $EMAIL_ADDRESS
 ```
 Confirm token works:
 `curl -s -X GET -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" "https://api.digitalocean.com/v2/sizes"`

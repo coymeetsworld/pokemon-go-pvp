@@ -1,0 +1,28 @@
+---
+
+# Freshly created droplets can take some time for cloud-init to finish and sshd to start accepting connections. Confirming we can ssh before attemping any droplet configurations.
+- name: Wait for SSH to become available on the droplet before configuring
+  ansible.builtin.wait_for:
+    host: pokemongopvp.com
+    port: 22
+    delay: 5
+    timeout: 120
+  delegate_to: localhost
+  become: false
+
+- name: Scan the droplet's current SSH host key
+  ansible.builtin.command: "ssh-keyscan -H pokemongopvp.com"
+  register: keyscan_result
+  delegate_to: localhost
+  become: false
+  changed_when: false
+
+- name: Add the droplet's host key to known_hosts
+  ansible.builtin.known_hosts:
+    name: pokemongopvp.com
+    key: "{{ keyscan_result.stdout }}"
+    state: present
+  become: false
+  delegate_to: localhost
+
+...

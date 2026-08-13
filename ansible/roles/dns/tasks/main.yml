@@ -40,7 +40,6 @@
     - "www"
   when: item not in current_a_records
 
-
 - name: Wait for DNS to resolve to the new droplet IP
   ansible.builtin.command: "dig +short pokemongopvp.com"
   register: dns_check
@@ -48,5 +47,15 @@
   retries: 30
   delay: 10
   changed_when: false
+  delegate_to: localhost
 
+- name: Wait for DNS to resolve via local resolver
+  ansible.builtin.command: "getent hosts pokemongopvp.com"
+  register: local_dns_check
+  until: local_dns_check.rc == 0
+  retries: 15
+  delay: 5
+  changed_when: false
+  delegate_to: localhost
+  become: false
 ...

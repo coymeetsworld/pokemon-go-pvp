@@ -1,11 +1,13 @@
 ---
 
-- name: Clone Pokemon Go PvP App repository
-  ansible.builtin.git:
-    repo: https://github.com/coymeetsworld/pokemon-go-pvp.git
-    dest: /opt/pvpoke
-    version: main
-  become: true
-  become_user: pvpoke
+- name: Deploy and configure Pokemon Go PvP App
+  ansible.builtin.import_tasks: deploy.yml
+
+# deploy.yml needs to run first, we run into an issue where we can't clone the git repo if the app directory is already populated with the python virtual environment.
+- name: Set up Python, virtual environment and dependencies
+  ansible.builtin.import_tasks: python.yml
+
+- name: Generate PvP Cache
+  ansible.builtin.import_tasks: generate_pvp_cache.yml
 
 ...

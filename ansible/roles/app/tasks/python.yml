@@ -1,0 +1,32 @@
+---
+
+- name: Update cache
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install python3 and pip
+  ansible.builtin.package:
+    name:
+      - python3
+      - python3-venv
+      - python3-pip
+    state: present
+
+- name: Create virtual environment for Pokemon Go PvP App
+  ansible.builtin.command:
+    cmd: python3 -m venv /opt/pvpoke/app/.venv
+    creates: /opt/pvpoke/app/.venv
+  become: true
+  become_user: pvpoke
+
+- name: Install app requirements
+  ansible.builtin.pip:
+    requirements: /opt/pvpoke/app/requirements.txt
+    virtualenv: /opt/pvpoke/app/.venv
+    virtualenv_command: python3 -m venv
+  become: true
+  become_user: pvpoke
+
+
+...

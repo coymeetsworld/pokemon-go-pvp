@@ -1,0 +1,28 @@
+---
+
+- name: Install acl package (required for become with unprivileged users)
+  ansible.builtin.apt:
+    name: acl
+    state: present
+  become: true
+
+# Ansible will create this directory, but put a warning when doing so given the permission setting. Will create explicitly just so we don't see the warning on runtime.
+- name: Create ansible tmp directory for pvpoke user
+  ansible.builtin.file:
+    path: /home/pvpoke/.ansible/tmp
+    state: directory
+    owner: pvpoke
+    group: pvpoke
+    mode: '0700'
+  become: true 
+
+
+- name: Create directory for Pokemon Go PvP App
+  ansible.builtin.file:
+    path: /opt/pvpoke
+    state: directory
+    owner: pvpoke
+    group: pvpoke
+  become: true
+
+...

@@ -1,0 +1,24 @@
+---
+
+- name: Restart PokemonGoPvP App
+  ansible.builtin.systemd:
+    name: pvpoke
+    state: restarted
+    enabled: true
+
+- name: Restart PokemonGoPvP Cache Service
+  ansible.builtin.systemd:
+    name: pvpoke-cache
+    state: restarted
+    enabled: true
+
+- name: Restart PokemonGoPvP Cache Timer
+  ansible.builtin.systemd:
+    name: pvpoke-cache.timer
+    state: restarted
+    enabled: true
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
+...

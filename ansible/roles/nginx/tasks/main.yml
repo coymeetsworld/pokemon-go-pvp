@@ -1,0 +1,62 @@
+---
+
+- name: Install Nginx
+  ansible.builtin.package:
+    name: nginx
+    state: present
+
+- name: Add www-data to pvpoke group for socket access
+  ansible.builtin.user:
+    name: www-data
+    groups: pvpoke
+    append: true   # critical -- without this, www-data's OTHER group memberships get wiped
+  become: true
+
+- name: Remove default nginx configuration
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "/etc/nginx/sites-enabled/default"
+    - "/etc/nginx/sites-available/default"
+
+- name: Install Certbot
+  ansible.builtin.apt:
+    name: certbot,python3-certbot-nginx
+    state: present
+
+- name: Deploy temporary HTTP-only config for ACME challenge
+  ansible.builtin.copy:
+    content: |
+      server {
+          listen 80;
+          server_name pokemongopvp.com www.pokemongopvp.com;
+          location / { return 200 'ok'; }
+      }
+    dest: /etc/nginx/sites-available/pokemongopvp
+
+- name: Enable pokemongopvp site
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/pokemongopvp
+    dest: /etc/nginx/sites-enabled/pokemongopvp
+    state: link
+
+- name: Start and enable Nginx service
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Obtain SSL certificate for the Pokemon Go PvP site
+  ansible.builtin.command:
+    cmd: certbot certonly --nginx -d "pokemongopvp.com" -d "www.pokemongopvp.com" --non-interactive --agree-tos -m "{{ email_address }}"
+    creates: /etc/letsencrypt/live/pokemongopvp.com/fullchain.pem
+  become: true
+
+- name: Deploy final pokemongopvp site config with SSL
+  ansible.builtin.template:
+    src: pokemongopvp.j2
+    dest: /etc/nginx/sites-available/pokemongopvp
+  notify: Reload Nginx
+
+...

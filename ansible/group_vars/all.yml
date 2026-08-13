@@ -1,2 +1,3 @@
 ---
 digitalocean_token: "{{ lookup('ansible.builtin.env', 'DIGITALOCEAN_TOKEN') }}"
+email_address: "{{ lookup('ansible.builtin.env', 'EMAIL_ADDRESS') }}"

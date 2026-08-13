@@ -1,0 +1,12 @@
+[Unit]
+Description=Regenerate pvpoke precomputed rankings cache
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=pvpoke
+Group=pvpoke
+WorkingDirectory=/opt/pvpoke
+Environment="PATH=/opt/pvpoke/app/.venv/bin"
+ExecStart=/opt/pvpoke/app/.venv/bin/python /opt/pvpoke/app/generate_cache.py

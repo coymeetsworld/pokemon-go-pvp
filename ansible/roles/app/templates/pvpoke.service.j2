@@ -1,0 +1,14 @@
+[Unit]
+Description=PvPoke Rankings Flask App
+After=network.target
+
+[Service]
+User=pvpoke
+Group=pvpoke
+WorkingDirectory=/opt/pvpoke/app/
+Environment="PATH=/opt/pvpoke/app/.venv/bin"
+ExecStart=/opt/pvpoke/app/.venv/bin/gunicorn --workers 3 --bind unix:pvpoke.sock -m 007 main:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

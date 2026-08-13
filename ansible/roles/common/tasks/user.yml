@@ -1,0 +1,17 @@
+---
+
+- name: Create group pvpoke
+  ansible.builtin.group:
+    name: pvpoke
+    state: present
+  become: true
+  
+- name: Create user pvpoke
+  ansible.builtin.user:
+    name: pvpoke
+    group: pvpoke
+    state: present
+    system: yes
+  become: true
+
+...
