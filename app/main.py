@@ -95,7 +95,7 @@ def index():
 @app.route("/api/rankings")
 def api_rankings():
     league, category, n = _parse_query_args()
-    pokemon = build_list(league, category, n)
+    pokemon = get_pokemon(league, category, n)
     return jsonify(pokemon)
 
 
