@@ -1,20 +1,12 @@
 """
 iv_calculator.py
 
-Computes the "ideal" IV spread for a Pokemon under a given CP cap, the same
-way PvPoke does it: brute-force every possible IV combination (0-15 for each
-of Attack/Defense/HP = 4096 combos), find the highest level each combo can
-reach without exceeding the CP cap, and rank combos by "stat product"
-(Atk * Def * HP at that level). The #1 ranked combo is the "ideal" IV spread.
-
-Verified against PvPoke's published values:
-  Mimikyu   (base 177/199/146) @ CP1500 -> IV 1/14/15  [matches]
-  Lickilicky(base 161/181/242) @ CP1500 -> IV 0/15/10  [matches]
+Computes the "ideal" IV spread for a Pokemon under a given CP cap.
 """
 
 import math
+from functools import lru_cache
 
-# CP Multiplier per level (standard Pokemon GO values, levels 1-51 in .5 steps)
 CPM = {
     1: 0.094, 1.5: 0.135137432, 2: 0.16639787, 2.5: 0.192650919, 3: 0.21573247,
     3.5: 0.236572661, 4: 0.25572005, 4.5: 0.273530381, 5: 0.29024988, 5.5: 0.306057377,
@@ -46,13 +38,9 @@ def _calc_cp(atk: float, defn: float, hp: float, cpm: float) -> int:
     return math.floor((atk * (defn ** 0.5) * (hp ** 0.5) * (cpm ** 2)) / 10)
 
 
+@lru_cache(maxsize=None)
 def best_iv_for_cap(base_atk: int, base_def: int, base_hp: int,
                      cp_cap: int, max_level: float = 51.0) -> dict:
-    """
-    Find the highest-stat-product IV spread for a species under a CP cap.
-
-    Returns dict: {"atk": iv, "def": iv, "hp": iv, "level": lvl, "cp": cp, "stat_product": p}
-    """
     levels = [l for l in _LEVELS if l <= max_level]
     best = None
 
@@ -63,7 +51,6 @@ def best_iv_for_cap(base_atk: int, base_def: int, base_hp: int,
                 d = base_def + iv_def
                 h = base_hp + iv_hp
 
-                # Find the highest level that keeps CP at or under the cap.
                 chosen_level = None
                 chosen_cp = None
                 for lvl in levels:
@@ -72,10 +59,10 @@ def best_iv_for_cap(base_atk: int, base_def: int, base_hp: int,
                         chosen_level = lvl
                         chosen_cp = c
                     else:
-                        break  # CP only increases with level, so we can stop early
+                        break
 
                 if chosen_level is None:
-                    continue  # even level 1 exceeds the cap
+                    continue
 
                 cpm = CPM[chosen_level]
                 stat_atk = a * cpm
@@ -90,13 +77,3 @@ def best_iv_for_cap(base_atk: int, base_def: int, base_hp: int,
                         "stat_product": product,
                     }
     return best
-
-
-if __name__ == "__main__":
-    mimikyu = best_iv_for_cap(177, 199, 146, 1500)
-    print("Mimikyu ideal IV:", f"{mimikyu['atk']}/{mimikyu['def']}/{mimikyu['hp']}",
-          f"(level {mimikyu['level']}, CP {mimikyu['cp']})")
-
-    lickilicky = best_iv_for_cap(161, 181, 242, 1500)
-    print("Lickilicky ideal IV:", f"{lickilicky['atk']}/{lickilicky['def']}/{lickilicky['hp']}",
-          f"(level {lickilicky['level']}, CP {lickilicky['cp']})")
