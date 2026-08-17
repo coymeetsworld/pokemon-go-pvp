@@ -34,7 +34,7 @@
     type: A
     name: "{{ item }}"
     data: "{{ droplet_ip }}"
-    ttl: 60
+    ttl: 3600
   loop:
     - "@"
     - "www"
