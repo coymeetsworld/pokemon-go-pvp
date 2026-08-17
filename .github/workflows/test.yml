@@ -1,6 +1,7 @@
 ---
-# CI workflow test runs automatically after every push/PR to main.
-name: Tests
+# CI/CD workflow test runs automatically after every push/PR to main
+
+name: Tests and Deploy
 
 on:
   push:
@@ -30,4 +31,38 @@ jobs:
 
       - name: Run unit tests (excludes network-dependent integration tests)
         run: pytest -m "not integration" -v
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ansible
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Ansible and Python dependencies
+        run: |
+          pip install -r requirements.txt
+          ansible-galaxy collection install -r requirements.yml
+
+      - name: Set up deploy SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H pokemongopvp.com >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Deploy app changes
+        run: |
+          ansible-playbook -i inventory/production.ini site.yml \
+            --tags app \
+            --private-key ~/.ssh/deploy_key
 ...

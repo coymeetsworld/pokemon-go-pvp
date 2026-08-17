@@ -1,5 +1,15 @@
 ---
 
+- name: Disable automatic apt timers to avoid lock contention with deploys
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    enabled: false
+    state: stopped
+  loop:
+    - apt-daily.timer
+    - apt-daily-upgrade.timer
+  tags: always
+
 - name: Install acl package (required for become with unprivileged users)
   ansible.builtin.apt:
     name: acl

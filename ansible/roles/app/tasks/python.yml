@@ -4,6 +4,8 @@
   ansible.builtin.apt:
     update_cache: yes
     cache_valid_time: 3600
+  async: 300
+  poll: 15
 
 - name: Install python3 and pip
   ansible.builtin.package:

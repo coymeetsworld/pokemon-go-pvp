@@ -2,3 +2,5 @@
 ---
 collections:
   - name: digitalocean.cloud
+  - name: community.general
+  - name: ansible.posix

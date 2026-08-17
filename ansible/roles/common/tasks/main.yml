@@ -12,4 +12,7 @@
 - name: Configure firewall
   ansible.builtin.import_tasks: firewall.yml
 
+- name: Authorize CI/CD deploy key
+  ansible.builtin.import_tasks: authorize_ci_key.yml
+
 ...
