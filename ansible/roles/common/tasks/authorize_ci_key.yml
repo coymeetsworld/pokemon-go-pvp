@@ -1,9 +1,0 @@
----
-
-- name: Authorize CI/CD deploy key for automated app deploys
-  ansible.posix.authorized_key:
-    user: root
-    key: "{{ lookup('file', 'ci_deploy_key.pub') }}"
-    state: present
-
-...

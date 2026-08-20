@@ -8,6 +8,169 @@
     - { role: droplet, tags: droplet }
     - { role: dns, tags: dns }
 
+- name: Bootstrap admin access (root -> pvpokedeployer)
+  hosts: pokemongopvp
+  gather_facts: false
+  vars:
+    ansible_user: root
+    droplet_target: "{{ hostvars['localhost']['droplet_ip'] }}"
+    ansible_host: "{{ hostvars['localhost']['droplet_ip'] }}"
+  tasks:
+    # Freshly created droplets can take some time for cloud-init to finish and
+    # sshd to start accepting connections. Confirming we can ssh before
+    # attempting any droplet configurations. Connects by IP, not hostname --
+    # avoids depending on DNS propagation/resolver caching for this play,
+    # which was causing flaky/inconsistent results across consecutive runs.
+    - name: Wait for SSH to become available on the droplet before configuring
+      ansible.builtin.wait_for:
+        host: "{{ droplet_target }}"
+        port: 22
+        delay: 5
+        timeout: 120
+      delegate_to: localhost
+      become: false
+
+    - name: Scan the droplet's current SSH host key (by IP)
+      ansible.builtin.command: "ssh-keyscan -H {{ droplet_target }}"
+      register: keyscan_result_ip
+      delegate_to: localhost
+      become: false
+      changed_when: false
+
+    - name: Add the droplet's host key to known_hosts (by IP)
+      ansible.builtin.known_hosts:
+        name: "{{ droplet_target }}"
+        key: "{{ keyscan_result_ip.stdout }}"
+        state: present
+      become: false
+      delegate_to: localhost
+
+
+    # --- Idempotency check -------------------------------------------------
+    # A freshly created droplet only has root; an already-hardened droplet has
+    # root login disabled and only pvpokedeployer/ci-deploy work. Probe with a
+    # raw `ssh` call from the control node (NOT an Ansible connection to the
+    # play's own hosts) so a failed probe here doesn't abort the whole run.
+    - name: Check whether root SSH login is still available
+      ansible.builtin.command:
+        cmd: >
+          ssh -i {{ ansible_ssh_private_key_file }}
+          -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=accept-new
+          root@{{ droplet_target }} true
+      register: root_ssh_check
+      delegate_to: localhost
+      become: false
+      changed_when: false
+      failed_when: false
+      retries: 5
+      delay: 5
+      until: root_ssh_check.rc == 0 or root_ssh_check.rc == 255
+
+    - name: Set fact for whether the droplet still needs bootstrapping
+      ansible.builtin.set_fact:
+        needs_bootstrap: "{{ root_ssh_check.rc == 0 }}"
+
+    - name: If root is unreachable, confirm pvpokedeployer already works
+      ansible.builtin.command:
+        cmd: >
+          ssh -i {{ ansible_ssh_private_key_file }}
+          -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=accept-new
+          pvpokedeployer@{{ droplet_target }} true
+      register: deployer_ssh_check
+      delegate_to: localhost
+      become: false
+      changed_when: false
+      failed_when: false
+      when: not needs_bootstrap
+
+    - name: Fail loudly if neither root nor pvpokedeployer can be reached
+      ansible.builtin.fail:
+        msg: >
+          Cannot connect as root (expected if bootstrap already ran) OR as
+          pvpokedeployer (expected if it hasn't) -- something is genuinely
+          broken. Check SSH keys, droplet status, and authorized_keys by hand
+          before rerunning.
+      when:
+        - not needs_bootstrap
+        - deployer_ssh_check.rc != 0
+
+    # --- Bootstrap tasks -- only run on a genuinely fresh droplet -----------
+    - name: Create pvpokedeployer account
+      ansible.builtin.user:
+        name: pvpokedeployer
+        groups: sudo
+        shell: /bin/bash
+        state: present
+      when: needs_bootstrap
+
+    - name: Authorize pvpokedeployer's SSH key
+      ansible.posix.authorized_key:
+        user: pvpokedeployer
+        key: "{{ admin_ssh_public_key }}"
+        state: present
+      when: needs_bootstrap
+
+    - name: Grant pvpokedeployer passwordless sudo
+      community.general.sudoers:
+        name: pvpokedeployer
+        user: pvpokedeployer
+        commands: ALL
+        nopassword: true
+        runas: ALL
+      when: needs_bootstrap
+
+    - name: Create ci-deploy account
+      ansible.builtin.user:
+        name: ci-deploy
+        groups: sudo
+        shell: /bin/bash
+        state: present
+      when: needs_bootstrap
+
+    - name: Authorize ci-deploy's SSH key
+      ansible.posix.authorized_key:
+        user: ci-deploy
+        key: "{{ lookup('file', playbook_dir + '/files/ci_deploy_key.pub') }}"
+        state: present
+      when: needs_bootstrap
+
+    - name: Grant ci-deploy passwordless sudo
+      community.general.sudoers:
+        name: ci-deploy
+        user: ci-deploy
+        commands: ALL
+        nopassword: true
+        runas: ALL
+      when: needs_bootstrap
+
+    - name: Verify pvpokedeployer can connect and use sudo (root and arbitrary users)
+      ansible.builtin.command:
+        cmd: >
+          ssh -i {{ ansible_ssh_private_key_file }}
+          -o BatchMode=yes -o ConnectTimeout=5
+          pvpokedeployer@{{ droplet_target }} "sudo -n true && sudo -n -u nobody true"
+      delegate_to: localhost
+      become: false
+      changed_when: false
+      when: needs_bootstrap
+
+    - name: Disable root SSH login
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PermitRootLogin'
+        line: 'PermitRootLogin no'
+      when: needs_bootstrap
+      notify: restart sshd
+
+  handlers:
+    - name: restart sshd
+      ansible.builtin.systemd:
+        name: sshd
+        state: restarted
+
+
+    # create pvpokedeployer + ci-deploy, authorize keys, verify sudo, disable root login
+
 - name: Configure DigitalOcean Droplet
   hosts: pokemongopvp
   become: yes

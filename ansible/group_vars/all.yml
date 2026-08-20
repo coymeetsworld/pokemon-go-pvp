@@ -1,3 +1,5 @@
 ---
 digitalocean_token: "{{ lookup('ansible.builtin.env', 'DIGITALOCEAN_TOKEN') }}"
 email_address: "{{ lookup('ansible.builtin.env', 'EMAIL_ADDRESS') }}"
+admin_ssh_public_key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/pokemongopvp_admin.pub') }}"
+certbot_staging: false # True if we do not want to make the request for the cert to certbot, they have rate limiters so ideal for testing to flag this on.

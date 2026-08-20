@@ -1,8 +1,5 @@
 ---
 
-- name: Verify and configure SSH access
-  ansible.builtin.import_tasks: ssh.yml
-
 - name: Set up base user and directories
   ansible.builtin.import_tasks: user.yml
 
@@ -11,8 +8,5 @@
 
 - name: Configure firewall
   ansible.builtin.import_tasks: firewall.yml
-
-- name: Authorize CI/CD deploy key
-  ansible.builtin.import_tasks: authorize_ci_key.yml
 
 ...

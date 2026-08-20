@@ -21,4 +21,10 @@
   retries: 10
   delay: 5
 
+- name: Register droplet in-memory using its real IP (avoids depending on DNS for the rest of this run)
+  ansible.builtin.add_host:
+    name: pokemongopvp.com
+    ansible_host: "{{ droplet_ip }}"
+    groups: pokemongopvp
+
 ...

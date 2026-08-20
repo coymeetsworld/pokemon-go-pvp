@@ -1,5 +1,0 @@
----
-
-public_key: "{{ lookup('ansible.builtin.file', ansible_env['HOME'] ~ '/.ssh/id_ed25519.pub') }}"
-
-...

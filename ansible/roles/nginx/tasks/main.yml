@@ -47,11 +47,33 @@
     state: started
     enabled: true
 
-- name: Obtain SSL certificate for the Pokemon Go PvP site
+- name: Obtain SSL certificate for the Pokemon Go PvP site (non-staging)
   ansible.builtin.command:
-    cmd: certbot certonly --nginx -d "pokemongopvp.com" -d "www.pokemongopvp.com" --non-interactive --agree-tos -m "{{ email_address }}"
+    cmd: >
+      certbot certonly --nginx
+      -d "pokemongopvp.com"
+      -d "www.pokemongopvp.com"
+      --non-interactive --agree-tos
+      -m "{{ email_address }}"
     creates: /etc/letsencrypt/live/pokemongopvp.com/fullchain.pem
   become: true
+  when: not certbot_staging
+
+- name: Obtain SSL certificate for the Pokemon Go PvP site (staging)
+  ansible.builtin.command:
+    cmd: >
+      certbot certonly --nginx
+      -d pokemongopvp.com
+      -d www.pokemongopvp.com
+      --non-interactive --agree-tos
+      -m {{ email_address }}
+      --staging
+  become: true
+  when: certbot_staging
+  notify:
+    - Reload Nginx
+
+
 
 - name: Deploy final pokemongopvp site config with SSL
   ansible.builtin.template:

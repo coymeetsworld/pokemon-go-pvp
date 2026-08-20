@@ -4,8 +4,8 @@
   digitalocean.cloud.ssh_key:
     state: present
     token: "{{ digitalocean_token }}"
-    public_key: "{{ public_key }}"
-    name: "{{ ansible_env['USER'] }}-key"
+    public_key: "{{ admin_ssh_public_key }}"
+    name: "pvpokedeployer-key"
   register: ssh_key
 
 ...

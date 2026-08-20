@@ -64,5 +64,6 @@ jobs:
         run: |
           ansible-playbook -i inventory/production.ini site.yml \
             --tags app \
+            -- user ci-deploy \
             --private-key ~/.ssh/deploy_key
 ...
