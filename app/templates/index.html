@@ -6,50 +6,25 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='pokemontypes.css') }}">
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('copy-low-atk-btn').addEventListener('click', () => {
-        const btn = document.getElementById('copy-low-atk-btn');
-        const text = document.getElementById('low-atk-search').innerText;
-        navigator.clipboard.writeText(text)
-          .then(() => {
-            btn.textContent = 'Copied!';
-            setTimeout(() => { btn.textContent = 'Copy'; }, 1200);
-          })
-          .catch(err => console.error('Copy failed:', err));
-      });
-      document.getElementById('copy-low-atk-btn').addEventListener('touchend', () => {
-        const btn = document.getElementById('copy-low-atk-btn');
-        const text = document.getElementById('low-atk-search').innerText;
-        navigator.clipboard.writeText(text)
-          .then(() => {
-            btn.textContent = 'Copied!';
-            setTimeout(() => { btn.textContent = 'Copy'; }, 1200);
-          })
-          .catch(err => console.error('Copy failed:', err));
-      });
+    document.addEventListener('click', async (e) => {
+      const btn = e.target.closest('[data-copy-target]');
+      if (!btn) return;
 
-      document.getElementById('copy-high-atk-btn').addEventListener('click', () => {
-        const btn = document.getElementById('copy-high-atk-btn');
-        const text = document.getElementById('high-atk-search').innerText;
-        navigator.clipboard.writeText(text)
-          .then(() => {
-            btn.textContent = 'Copied!';
-            setTimeout(() => { btn.textContent = 'Copy'; }, 1200);
-        })
-        .catch(err => console.error('Copy failed:', err));
-      });
+      const source = document.getElementById(btn.dataset.copyTarget);
+      if (!source) {
+        console.warn(`Copy target #${btn.dataset.copyTarget} not found`);
+        return;
+      }
 
-      document.getElementById('copy-high-atk-btn').addEventListener('touchend', () => {
-        const btn = document.getElementById('copy-high-atk-btn');
-        const text = document.getElementById('high-atk-search').innerText;
-        navigator.clipboard.writeText(text)
-          .then(() => {
-            btn.textContent = 'Copied!';
-            setTimeout(() => { btn.textContent = 'Copy'; }, 1200);
-        })
-        .catch(err => console.error('Copy failed:', err));
-      });
-
+      const original = btn.textContent;
+      try {
+        await navigator.clipboard.writeText(source.innerText);
+        btn.textContent = 'Copied!';
+      } catch (err) {
+        console.error('Copy failed:', err);
+        btn.textContent = 'Failed';
+      }
+      setTimeout(() => { btn.textContent = original; }, 1200);
     });
   </script>
 </head>
@@ -83,30 +58,30 @@
 
   <h2>Pokemon Go Search String</h2>
   <p>Copy and paste these search strings into your search to filter out Pokemon that are candidates for being good in PVP</p>
-  {% if low_atk_list|length != 0 %}
+  {% if low_atk_list %}
     <p>Low Atk, High Def & HP</p>
-    <button type="button" id="copy-low-atk-btn">Copy</button>
+    <button type="button" data-copy-target="low-atk-search">Copy</button>
+    <span id="low-atk-search">
+      {% for pokemon in low_atk_list %}
+        {{pokemon}},
+      {% endfor %}
+      {% if low_atk_list|length != 0 %}
+        &!#&0-1attack&3-4hp&3-4defense
+      {% endif %}
+    </span>
   {% endif %}
-  <span id="low-atk-search">
-    {% for pokemon in low_atk_list %}
-      {{pokemon}},
-    {% endfor %}
-    {% if low_atk_list|length != 0 %}
-      &!#&0-1attack&3-4hp&3-4defense
-    {% endif %}
-  </span>
-  {% if high_atk_list|length != 0 %}
+  {% if high_atk_list %}
     <p>High Atk, Def & HP</p>
-    <button type="button" id="copy-high-atk-btn">Copy</button>
+    <button type="button" data-copy-target="high-atk-search">Copy</button>
+    <span id="high-atk-search">
+      {% for pokemon in high_atk_list %}
+        {{pokemon}},
+      {% endfor %}
+      {% if high_atk_list|length != 0 %}
+        &!#&3-4attack&3-4hp&3-4defense
+      {% endif %}
+    </span>
   {% endif %}
-  <span id="high-atk-search">
-    {% for pokemon in high_atk_list %}
-      {{pokemon}},
-    {% endfor %}
-    {% if high_atk_list|length != 0 %}
-      &!#&3-4attack&3-4hp&3-4defense
-    {% endif %}
-  </span>
 
   <table>
     <thead>
