@@ -79,9 +79,12 @@ pip install -r requirements.txt
 python main.py
 ```
 
+
 Then open `http://127.0.0.1:5000`.
 
 Optional: create `app/.env` for local development settings (safe to omit -- defaults to production-safe behavior if missing):
+
+Optional: run `python generate_cache.py` so the results from pvpoke.com do not have to keep getting pulled.
 
 ```
 FLASK_DEBUG=true

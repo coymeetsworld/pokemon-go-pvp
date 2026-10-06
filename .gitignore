@@ -1,6 +1,7 @@
 .env
 .pgo/
 .pvpoke_cache/
+.vscode
 tmp/
 __pycache__/
 precomputed/
